@@ -1,0 +1,73 @@
+# C# Programming Language
+	- Type Systeme with Support for Conversion
+		- Value Types
+			- Numeric
+				- byte (1),short(2),int(4),long(8)
+				- float(4), double(8)
+				- decimal(16)
+			- Boolean
+				- bool(1)
+			- Character
+				- char(2)
+			- Nullable Representation for type
+				- Establish a bridge between C# code and database column type definitions to prevent runt-time exception
+				- Value Types can be nullable
+					- int? x;
+						- x can have null value
+		- Reference Types
+			- String
+				- Class for string operation
+				- C# 9.0+ as nullable string
+					- string? str; 
+			- Collections
+			- Delegates and Events
+			- Classs
+				- Foundation of OOPs
+					- Class contains Members
+						- Data Members, fields
+						- Properties
+						- methods
+						- events
+					- Access Speicfiers
+						- private (default for Class members)
+						- public, accessible everywhere
+						- protected, accessible only in derived class
+						- internal, default for class, accessible with a namespace in assembly
+							- The namespace is collection of classes
+						- protected internal
+							- Accessible with a namespace in all derived classed also derived classed in other assembly
+						- Access Modifiers
+							- Define a behavior of class and its members
+							- abstract
+								- When applied on class, it cannot be instantiated
+								- When applied on methods, the methos must be overriden in derived class
+							- sealed
+								- When applied on class, it cannot be derived
+								- When applied on method, it canot be overriden		- static
+								- The Class members are directly accessible w/o instance
+							- virtual
+								- Used to define a method with a default implmentation, it many be overriden by method in derived class or can be used as it is 
+							- override
+								- Used to override an abstract and vitrual methods 
+				- Beginning of Domain-Driven-Development
+					- Class 
+						- Class with public properties only
+							- An Entity class /  DTO
+						- Class with Logic Method known as Business class or Domain class
+					- Make sure that the class has all method targetted or scope to a specfic responsiblility (Single-Responsibility-Principal)
+						- e.g. If created a class for Employee Opetrations, then each method of the class MUST contains logic around employee operations e.g. Read/Write		
+				- For a method each value type paramerter will be having values stored in differnt memory locations, pass by value
+					- For reference pass used 'ref' or 'out'
+						- the 'ref' must be having initial values before passing to method
+						- the 'out' must change values inside the method, the caller need not have an initial value for the 'out' variable 
+
+
+
+
+			- Records (New in C# 10)
+			- Interface
+# C# Project with .NET 6+
+	- Implict Main() method
+	- Microsoft.NETCore.App
+		- An assembly containing all Standard .NET Libraries those are used tobuild and run the application 
+	- Single File Publish with The Compression of dependencies for XCopy or easy deployment
