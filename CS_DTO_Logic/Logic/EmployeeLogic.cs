@@ -16,7 +16,7 @@ namespace CS_DTO_Logic.Logic
         // public methods
         public Employee[] GetEmployees() 
         {
-            return employees;
+            return employees; 
         }
 
         public Employee[] AddEmployee(Employee emp)

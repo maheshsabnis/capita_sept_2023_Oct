@@ -71,3 +71,31 @@
 	- Microsoft.NETCore.App
 		- An assembly containing all Standard .NET Libraries those are used tobuild and run the application 
 	- Single File Publish with The Compression of dependencies for XCopy or easy deployment
+
+# Inheritance
+	- A Class can be derived from 'ONLY-ONE-BASE' class
+	- No Multiple inheritance is supported in C#
+
+	- A base class has only one derived class, known as , Single Inheritence
+	- A base class has multiple derived classes as same level, knows as, hierarchical Inheritance
+	- A derive class act as a base class for further derived classes, known as, multi-level inheritance
+# Polymorphism
+	- Create an Abstratc class
+		- A Plan for Expected Implementation
+		- Techincal Specification w.r.t.C#
+			- The 'abstract' keyword to declare the abstract class 
+			- This cannot be instantiated
+			- This MUST be derived
+			- This can contain 'virtual' methods
+				- These methods can contain default implementation
+				- The derived class can use this implementation as it it w/o overriding these methods or derived can class override these methods and can add new implementation for it
+			- This can contain 'abstract' method
+				- These methods does not have any implementation
+				- These methods 'MUST BE OVERRIDEN' by the derived class
+				- If the derived class is not overriding all abstract methods of abstract base then the derived class MUST be made as abstract class
+	- Compile Time Polymorphism
+		- An idea to provide differewnt implmentation for abstract and virtual methods of base class in the derived class as per the requiremenets
+		- The Base class is instantiated using its derive class to access specific behavior defined in the derived class implementation
+	- Runtime aka Dynamic Polymorphism
+		- In this case the Runtime accepts an abstract class type and then has to check the actual derived type from the abstract class and invoke the implementation from the derived type to execute it
+		- Runtime Replaces the Abstract class type to its Derived Type at runt time, this is known as 'Liskov Substitution Principal'
