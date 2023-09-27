@@ -22,7 +22,7 @@ Create a Class with methods to store Employee Information, read and update the i
 	- GetAllCharacters()
 	- GetAllWords()
 	- GetAllDigits()
-	- GetAllSpecialCharacters(char c)
+	- GetCountSpecialCharacters(char c)
 		- c will be special character entered by user
 	- ChangeTitleCase() 
 		
