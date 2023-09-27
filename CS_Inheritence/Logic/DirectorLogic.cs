@@ -1,4 +1,5 @@
-﻿using CS_Inheritence.Models;
+﻿using CS_Inheritence.Database;
+using CS_Inheritence.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,13 @@ namespace CS_Inheritence.Logic
         {
             /* While Storing Higher Order Object in Class Tree in an array on the Lower Order object's array of the tree make sure that the higher object you typecast */
             directors[counter++] = (Director)emp;
+
+            ApplicationDB.EmployeesDb?.Add(emp);
         }
         public override Employee[] GetEmployee()
         {
-            return directors;
+            return ApplicationDB.EmployeesDb?.ToArray();
+            //return directors;
         }
 
         public override decimal CalculateSalary(Employee emp)

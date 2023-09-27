@@ -1,4 +1,5 @@
-﻿using CS_Inheritence.Models;
+﻿using CS_Inheritence.Database;
+using CS_Inheritence.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,13 @@ namespace CS_Inheritence.Logic
         public override void AddEmployee(Employee emp)
         {
             managers[counter++] = (Manager)emp;
+
+            ApplicationDB.EmployeesDb?.Add(emp);
         }
         public override Employee[] GetEmployee()
         {
-            return managers;
+            return ApplicationDB.EmployeesDb.ToArray();
+            //return managers;
         }
         public override decimal CalculateSalary(Employee emp)
         {

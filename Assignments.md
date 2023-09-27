@@ -12,5 +12,17 @@ Create a Class with methods to store Employee Information, read and update the i
 		- Find details of specific Employee from this array	
 		- Modify details of Employee e.g. Salary, and other data
 		
+# Date: 27-Sept-2023
 
+1.	(LAB): Modify the Employee class and its derive classes that will store information of each Employee in Generic Dictionary
+	1.	Dictionary<string, List<Employee>> db = new Dictionary<string, List<Employee>>()
+		1.	The key 'string' will be DeptName
+		1. Each DeptName will have List of Employees (with its derivations) 
+2. Write following Extension Methods for 'String' class
+	- GetAllCharacters()
+	- GetAllWords()
+	- GetAllDigits()
+	- GetAllSpecialCharacters(char c)
+		- c will be special character entered by user
+	- ChangeTitleCase() 
 		

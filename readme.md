@@ -99,3 +99,60 @@
 	- Runtime aka Dynamic Polymorphism
 		- In this case the Runtime accepts an abstract class type and then has to check the actual derived type from the abstract class and invoke the implementation from the derived type to execute it
 		- Runtime Replaces the Abstract class type to its Derived Type at runt time, this is known as 'Liskov Substitution Principal'
+
+# In-Memory Data Store
+- System.Collections
+	- IEnumerable data storage
+		- A Data Structure that will store data in well-organized and read/write friendly manner
+	- ArrayList, Stack, Queue, SortedList, etc.
+		- Each entry in collection is stored as 'Object'	
+		- Each entry in collection is 'Boxed', means the type of data and actual data will be stored in the collection
+		- To Read data from the Object, the casting is mandatory
+			- First Check the Type,First  CPU Cycle
+			- Read data from it, Second CPU Cycle 
+
+- System.Collections.Generic
+	- Generics
+		- The Template, which represents a standard Data Structure to store data of any .NET type
+````csharp
+ class MyCollection<T> 
+ {....}
+````
+		- The 'T' is the template, that represent the .NET Type
+````csharp
+		MyCollection<int> intColl = new MyCollection<int>(); 
+		MyCollection<string> strColl = new MyCollection<string>();
+		MyCollection<Employee> empColl = new MyCollection<Employee>();
+
+````
+		- The 'intColl', is an interger copy of the MyCollection class in Memory and so on. The inColl will use all behavior of MyCollection class only for 'int' datatype
+		- Define once and uses its In-Memory Binary copy to store data of any .NET Type
+
+		- Generics
+			- Class
+				- List<T>, Stack<T>, LinkedList<T>, etc.
+				- KeyValuePair<T,U>
+					- T is Key
+					- U is Value
+				- Dictionary<K,V>
+					- K: Generally a string, but can be any type of Object
+					- V: May be a Colete Collection
+			- Interface
+				- IEnumerable<T>, IList<T>, IDictionary<K,V>, etc.
+			- Member
+			- Event and Delegate
+	- Best Practices
+		- WHile defining our own generic types make sure that use the 'Generic Constraints'
+			- This will restrict the type for 'T' and hence avoid the misuse of T parameter 
+# Sealed class
+	- The 'sealed' keyword to prevent the class from getting extended
+	- Advantage
+		- All behaviors of class as final and they are intended to be used as- it-is
+		- The Funcaiotnality is prevented from getting overriden so its won't be intensionally misused
+		- Most of the Third-Party uses this 
+	- Extension Methods
+		- USed to Extend Standard .NET or User defined sealed class w/o modifying or deriving from it
+		- Rules
+			- The class that contains logic for Extension method 'MUST be Static'
+			- The Method 'MUST be Static'
+			- The 'First Parameter' of the method 'MUST be "this" referred reference' of the class (or interface) for which the extension method is written 
