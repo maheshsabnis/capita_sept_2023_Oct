@@ -26,3 +26,12 @@ Create a Class with methods to store Employee Information, read and update the i
 		- c will be special character entered by user
 	- ChangeTitleCase()  
 		
+# Date: 28-Sept-2023
+
+1	(LAB): Define an event for the Employee class that will generate a notification to pay tax based on the Salary calculated. 
+
+2.	(LAB): Create an application that will query to Employee collection for performing the following
+a.	Sort all Employees by Salary
+b.	Sort all Employees by EmpName
+c.	Group all Employees by DeptName
+d.	Get the Second Max Salary

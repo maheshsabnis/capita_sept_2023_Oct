@@ -144,6 +144,8 @@
 	- Best Practices
 		- WHile defining our own generic types make sure that use the 'Generic Constraints'
 			- This will restrict the type for 'T' and hence avoid the misuse of T parameter 
+	- Collection Popular Methods
+		- Clone(), Copy(), Concatinate(), etc.
 # Sealed class
 	- The 'sealed' keyword to prevent the class from getting extended
 	- Advantage
@@ -156,3 +158,54 @@
 			- The class that contains logic for Extension method 'MUST be Static'
 			- The Method 'MUST be Static'
 			- The 'First Parameter' of the method 'MUST be "this" referred reference' of the class (or interface) for which the extension method is written 
+	
+# Interfaces
+- A Type that contains method definitions and is implemented by a class to provide actual logic for each method in the interface
+- A Class implements interface and hence MUST implement all method of interface, if not then compiler will generate error
+- A Class can implement Multiple Interfaces (BUT this is not multiple inheritence)
+	- Class implement Interface 'Implicitly'
+		- The class is owner of methods from interface along with interface
+		- Interface implemented Methods are accessible using class instance as well as interface reference
+	- Class can implement Interface 'Explicitly'
+		- Since a class can implement multiple interfaces, it may happen that these interface have same method with same signeture
+		- In this case to provde different implementations for methods in interfaces, the class MUST implement methods 'explicitly'
+		- In this case, although class provides implementation for methods (logic), these methods  are own by respective interface and will always be acceesible using interface reference
+			- Polymorphism using interfaces
+
+# Delegate and Event
+- Delegate
+	- A Type that is used to 'Invoke a method with its reference'
+	- Rules
+		- To invoke a method using delegate the signeture of method and delegate must match
+		- Delegate is a Type 'System.Delegate' and used using the 'delegate' keyword
+		- Delegate can also contain a method implementation in it without explicitly defining a method. This is known as 'Anonymous Method (C# 2.0)'
+		- Delegate can be passed as input parameter to a method
+		- If a method is accepting delegate as input parameter, then we can pass 'Lambda Expression' as an input parameter to the method
+			-  Lambda Expression: This is an implementation which is directly eabstracted by the delegate
+				- Syntax
+					- DoOperation(x=>x+10)
+					- '=>' called as 'goes into a method and returns'
+		
+- Event
+	- A Special type of Delegate that is raised based on Condition
+	- Event is always declared using Delegate
+	- Event is responsible to invoke a method which contains logic for Notification
+	- Event is always declared inside the class
+	- The delegate which is used to define an event MUST have return type as void. This is because the event does not return any value to client
+
+
+# Language Integrated Query (LINQ)
+- Introduced with .NET 3.5 and C# 3.0
+- Uses Extension Methods and Lambda Expressions extensively
+	- Extension Method are utilities
+		- Where(), Select(), Group(), OrderBy(), etc.
+	- System.Core
+		- OLinq, LINQ to Object
+		- XLinq, LINQ to XML
+		- DLinq, LINQ to Data
+			- Enhanced to EntityFramework 
+- Inperative Queries those are language agonostic
+	- Keywords
+		- select, where, order, by, descending, group, etc. 	
+
+
