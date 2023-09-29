@@ -209,3 +209,55 @@
 		- select, where, order, by, descending, group, etc. 	
 
 
+# Task Parallel Library .NET Framework 4.0
+- TPL is standard for All next release of .NET Frwk and Foundation for Cross-Platform .NET (.NET Core for all versions and .NET 5 onwards)
+- System.Thread.Task
+	- Parallel
+		- For()
+			- Collection Reading on Seperate Threads 
+		- ForEach()
+			- Same as For() with Iteration 
+		- Invoke() 
+			- USed to Invoke Multiple Methods using 'Action' delegate so that all methods will be executed parallelly
+	- Task
+		- Task Non Generic
+			- Unit of Async Operations
+			- Start and execute a method on Thread but does not return anything 
+		- Task<T>
+			- Unit of Async Operation
+			- Execute a method on Thread and return T as Result
+			- Methods
+				- StartNew
+				- Run
+				- Wait(), WaitAny(), WaitAll()
+				- ContinueWith()
+					- Executes Multiple Tasks in Sequence
+					- Result of Previous Task is an put to next Task
+		- .NET Framework 4.5+ (C# 4.0+) and in Cros-Platform .NET
+			- Framework Managed Async Methods
+				- Method that returns 'Task' object executed Asynchronously
+				- Naming Policy for Async Method
+					- XXXXAsync(), XXXX is method Name
+						- e.g.
+							- OpenAsync(), ReadFileAsync(), WriteFileAsync(), etc.
+				- The 'async' and 'await' keywords
+					- If the Method returns a Task Object, means its has some asynchrnous executing operations, 
+					- Use 'async' keyword to define such method
+					- Use 'await' keyword to make an async operation class from 'async' method
+````csharp
+	public async Task<string> ReadDataAsync()
+	{
+		string data1 = await File1.ReadAsync();
+		string data2 = await File2.ReadAsync();
+		string data = data1+data2;
+		return data;
+	}
+````
+					- The async and await will inform to dotnet.exe that the ReadDataAsync() method will be executed asynchronously on seperate thread and will return a 'string' after an async operation is over  
+		- The 'Task' base Asynchronous programming allowed to have the code execution in no-block model 
+
+
+
+
+
+	

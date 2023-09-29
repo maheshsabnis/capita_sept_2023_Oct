@@ -35,3 +35,16 @@ a.	Sort all Employees by Salary
 b.	Sort all Employees by EmpName
 c.	Group all Employees by DeptName
 d.	Get the Second Max Salary
+
+
+# Date: 29-Sept-2023
+
+1.	(LAB): Using Parallel class to Process all employees to calculate NetSalary and Tax for each salary using Parallel.ForEach Method
+
+2.	(LAB): Using Parallel Invoke method to process Category wise employees for processing them to  calculate Tax 
+	- Means: REad the Dictionary<string, List<Employee>> object
+		-  string is Key which is category of Employee i.e. Director, Manager, Engineer, etc
+			- The Calculate Salary will invoked for Each Employee Category in Parallel Invoke Method and the Salary Data along with the Tax will be written into a text file created using the File class
+			- Create a seperate file for each employee based in following naming pattern 
+				- empNo_empname.txt
+
