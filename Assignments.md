@@ -48,3 +48,10 @@ d.	Get the Second Max Salary
 			- Create a seperate file for each employee based in following naming pattern 
 				- empNo_empname.txt
 
+# Date: 03-Oct-2023
+
+1. Using ContinueWith() method for performing Tasks like read each Employee, calculate Income Details and write those details in file
+	- Task 1: Read EMployee DEtails
+	- Task 2: Calculate Income
+	- TAsk 3: Write that Data in File
+2. Make sure that the Global Database for Storing the Employee Information is repaced by ConcurrentDictionary

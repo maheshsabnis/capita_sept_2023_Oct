@@ -256,8 +256,18 @@
 					- The async and await will inform to dotnet.exe that the ReadDataAsync() method will be executed asynchronously on seperate thread and will return a 'string' after an async operation is over  
 		- The 'Task' base Asynchronous programming allowed to have the code execution in no-block model 
 
+		- We can easliy COntinue from Previous Task to Next Task, this will be handled by .NET execution engine for managing communciation across various Tasks
+			- Continue W/o any input from Previous Task to Next Task
+			- Continue with output of Previous Task to Next Task
 
+# COncurrent Data STructures
 
+- This is offered to stored data in memory in such a way that, the data can be accessible across multiple threads
+
+- ConcuretBag<T>, Just like List
+- ConcurrentStack<T>
+- ConcurrentDictionary<T,U>
+- ConcurrentQueue<T>
 
 
 	
