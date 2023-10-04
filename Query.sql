@@ -1,5 +1,5 @@
 Create database UCompany
-Use UComapny
+Use UCompany
 
 
 Create Table Department (
@@ -16,3 +16,7 @@ Create Table Employee (
   Designation varchar(200) Not Null,
   DeptNo int not null References Department(DeptNo)
 )
+
+INsert into Department Values(10, 'IT', 'Pune', 1000)
+INsert into Department Values(20, 'HR', 'Pune', 100)
+INsert into Department Values(30, 'SL', 'Pune', 600)

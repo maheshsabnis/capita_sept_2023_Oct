@@ -386,14 +386,14 @@
 	- dotnet ef dbcontext scaffold "[CONNECTIO-STRING]" [DATABASE-PROVIDEER-PACKAGE] -o [PATH-OF-FOLDER-WHERE-ENTITYCLASSES-AND-DBCONTEXT-CLASSES-WILL-BE-CREATED] 
 
 	- e.g. (If using Windows Authetication)
-		- dotnet ef dbcontext scaffold "Data Source=[IP-ADDRESS-OF-SERVER/SERVER-INSTANCE-NAME/localhost/.];Initial Catalog=[DATABASE-NAME];Integrated Secuity=SSPI;TrusetServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models
+		- dotnet ef dbcontext scaffold "Data Source=[IP-ADDRESS-OF-SERVER/SERVER-INSTANCE-NAME/localhost/.];Initial Catalog=[DATABASE-NAME];Integrated Security=SSPI;TrusetServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models
 		
 		- E.g. In My Case on My MAchine
-			- dotnet ef dbcontext scaffold "Data Source=.;Initial Catalog=UCompany;Integrated Secuity=SSPI;TrusetServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models   
+			- dotnet ef dbcontext scaffold "Data Source=.;Initial Catalog=UCompany;Integrated Security=SSPI;TrusetServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models   
 	
 	
 	- e.g. (If using SQL Authentication)
-		- dotnet ef dbcontext scaffold "Data Source=[IP-ADDRESS-OF-SERVER/SERVER-INSTANCE-NAME/localhost/.];Initial Catalog=[DATABASE-NAME];User Id=[USER-NAME];PAssword=[PASSWORD];TrusetServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models
+		- dotnet ef dbcontext scaffold "Data Source=[IP-ADDRESS-OF-SERVER/SERVER-INSTANCE-NAME/localhost/.];Initial Catalog=[DATABASE-NAME];User Id=[USER-NAME];PAssword=[PASSWORD];TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models
 
 - Code-First
 	- Create ENtity Classes
