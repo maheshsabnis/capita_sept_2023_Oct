@@ -287,7 +287,7 @@
 		- Classes
 			- DbContext
 ````html
-			-DbSet&lt;T&gt;
+			-DbSet<T>
 ````
 	- Microsoft.EntityFrameworkCore.SqlServer 
 		- Used to Manage Conection with SQL Server Database
