@@ -286,7 +286,9 @@
 		- Foundation for EF Core
 		- Classes
 			- DbContext
-			- DbSet<T>
+````html
+			-DbSet&lt;T&gt;
+````
 	- Microsoft.EntityFrameworkCore.SqlServer 
 		- Used to Manage Conection with SQL Server Database
 		- Manage the SQL DbTypes for Mapping with properties of the CLR Objects
@@ -311,17 +313,23 @@
 		- Transaction Method
 			- SaveChanges(), the Synchronous Method
 			- SaveChangesAsync(), the Asynchronous Method
-	- Used to manage the Mapping with between CLR Class (Entity Class) and the Database Table using the DbSet<T>
+	- Used to manage the Mapping with between CLR Class (Entity Class) and the Database Table using the  
+````html 
+	DbSet<T>
+
+
 		- DbSet<T>
 			- The  'T' is Entity class
 			- Cursor that repreents the Mapping Between Entity class and DB Table
 			- Contains Methods for INsert, Delete, Find, etc.
+````
 
 - Pseduo Code for EF Core
 - The DbContext instance is 'ctx'
 - The Entity class is 'Employee'
+````html 
 - The DbSet<Employee> is 'Employees'
-
+````
 
 - REad All Records 
 	- var emps = ctx.Employees.ToList(); / var emps = await ctx.Employees.ToListAsync();
@@ -392,9 +400,10 @@
 	- Create a Class Derived from DbContext
 		- override the OnCOnfiguring() method
 			- in this method define connection string to database using UseSqlServer() method  
+````html
 		- Define DbSet<T> public properties for each entity class
 		- override OnModelCreating() method that contains code (fluent api) to establish relationships across entities that will be reflected in database tables
-	
+````
 	- Generate migration
 		- This is a C# code to create table
 	
