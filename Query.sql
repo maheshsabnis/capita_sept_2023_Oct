@@ -1,3 +1,4 @@
+Create database UCompany
 Use UComapny
 
 

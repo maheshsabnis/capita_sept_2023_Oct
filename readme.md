@@ -270,4 +270,139 @@
 - ConcurrentQueue<T>
 
 
+# Entity Framework Core [EF Core]
+
+- Database First: When the database is already in production-ready state
+	- Generate Entities from Tables
+	- Perform CRUD OPerations
+- Code-First: 
+	- Design a Conceptual Model
+	- Establish Relationships across These models
+	- Generate Database and Tables with Constraints 
+	- Perform CRUD OPerations
+
+- Set of Packages
+	- Microsoft.EntityFrameworkCore 
+		- Foundation for EF Core
+		- Classes
+			- DbContext
+			- DbSet<T>
+	- Microsoft.EntityFrameworkCore.SqlServer 
+		- Used to Manage Conection with SQL Server Database
+		- Manage the SQL DbTypes for Mapping with properties of the CLR Objects
+	- Microsoft.EntityFrameworkCore.Relational
+		- Manage the Relationships across Tables
+			- One-to-Many
+				- Foreign Key 
+			- One-to-One
+				- Reference Key based on Foreign Key 
+			- Many-to-Many
+				- Manage the Many-to-Many SQL Table that contains primary keys for tables having Many-to-Many relationships  
+				- When Transactions (Insert) are performed on these tables, the Many-to-Many SQL Table will store Primary Keys of Both tables for setting Many-to-Many Relationships
+	- Microsoft.EntityFrameworkCore.Design
+		- USed for Helping to generate Entities from Tables
+	- Microsoft.EntityFrameworkCore.Tools
+		- USed for EF Core CLI
+
+- DbContext class
+	- Used to manage the Database Connection and Transactions
+		- Managing Connection, is using SQL Server
+			- USes the 'Microsoft.EntityFrameworkCore.SqlServer ' package and its 'UseSqlSever("DB-CONNECTION-STRING")' method
+		- Transaction Method
+			- SaveChanges(), the Synchronous Method
+			- SaveChangesAsync(), the Asynchronous Method
+	- Used to manage the Mapping with between CLR Class (Entity Class) and the Database Table using the DbSet<T>
+		- DbSet<T>
+			- The  'T' is Entity class
+			- Cursor that repreents the Mapping Between Entity class and DB Table
+			- Contains Methods for INsert, Delete, Find, etc.
+
+- Pseduo Code for EF Core
+- The DbContext instance is 'ctx'
+- The Entity class is 'Employee'
+- The DbSet<Employee> is 'Employees'
+
+
+- REad All Records 
+	- var emps = ctx.Employees.ToList(); / var emps = await ctx.Employees.ToListAsync();
+		- For ToListAsync(), we need 'Microsoft.EntityFrameworkCore' namespace used in code file 	
+- Read a Single Record using Primary Key
+	- var emp = ctx.Employees.Find(EmpNo); /  var emp = await ctx.Employees.FindAsync(EmpNo);
+		- The Table 'MUST' have a Primary Key
+		
+- Create a new single record (Insert)
+	- CReate an instance of EMployee class and set its properties values
+		- Employee emp = new Employee(){EmpNo=, EmpName= "",....}
+	- Add this instance in the Employees DbSet
+		- ctx.Employees.Add(emp); /  await ctx.Employees.AddAsync(emp);
+	- Complete Transaction
+		- ctx.SaveChanges(); / await ctx.SaveChangesAsync();
+
+- Inserting multiple records
+	- Create an Array (or any COllection) of Employee class with values e.g. employees
+	- PAss this collection to AddRange()
+		- ctx.Employees.AddRange(employees); / await ctx.Employees.AddRangeAsync(employee);
+		- Complete Transaction
+			- ctx.SaveChanges(); / await ctx.SaveChangesAsync();
+
+- Update Record
+	- Search record based on Primary Key
+	- If found then Update its property values
+	- Complete Transaction
+- Delete Record
+	- Search record based on Primary Key
+	- USe the Remove method for DbSet and pass the searched record to it
+		- ctx.EMployees.Remove(emp);
+	- Complete Transaction
+
+# Pratically using EF Core
+
+- Instaling Packages 
+	- From Command prompt instaling pakages
+	- Navigate to the Projet folder, (path upto bin for the project)
+	- Syntax
+		- dotnet add package [PACKAGE-NAME] -v [VERSION-NO]
+	- e.g.
+		- dotnet add pakage Microsoft.EntityFrameworkCore -v 7.0.0
+		- dotnet add pakage Microsoft.EntityFrameworkCore.SqlServer -v 7.0.0 
+		- dotnet add pakage Microsoft.EntityFrameworkCore.Relational -v 7.0.0
+		- dotnet add pakage Microsoft.EntityFrameworkCore.Tools -v 7.0.0
+		- dotnet add pakage Microsoft.EntityFrameworkCore.Design -v 7.0.0
+
+- Use the 'dotnet ef' cli to generate enties from the database
+
+- ****IMP Note
+	- Make sure that the dotnet ef cli is instaled on the mahing using teh following command
+		- dotnet tool install --global dotnet-ef 
+- Generating Etities from the Database using the following command
+	- dotnet ef dbcontext scaffold "[CONNECTIO-STRING]" [DATABASE-PROVIDEER-PACKAGE] -o [PATH-OF-FOLDER-WHERE-ENTITYCLASSES-AND-DBCONTEXT-CLASSES-WILL-BE-CREATED] 
+
+	- e.g. (If using Windows Authetication)
+		- dotnet ef dbcontext scaffold "Data Source=[IP-ADDRESS-OF-SERVER/SERVER-INSTANCE-NAME/localhost/.];Initial Catalog=[DATABASE-NAME];Integrated Secuity=SSPI;TrusetServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models
+		
+		- E.g. In My Case on My MAchine
+			- dotnet ef dbcontext scaffold "Data Source=.;Initial Catalog=UCompany;Integrated Secuity=SSPI;TrusetServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models   
 	
+	
+	- e.g. (If using SQL Authentication)
+		- dotnet ef dbcontext scaffold "Data Source=[IP-ADDRESS-OF-SERVER/SERVER-INSTANCE-NAME/localhost/.];Initial Catalog=[DATABASE-NAME];User Id=[USER-NAME];PAssword=[PASSWORD];TrusetServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models
+
+- Code-First
+	- Create ENtity Classes
+	- Create a Class Derived from DbContext
+		- override the OnCOnfiguring() method
+			- in this method define connection string to database using UseSqlServer() method  
+		- Define DbSet<T> public properties for each entity class
+		- override OnModelCreating() method that contains code (fluent api) to establish relationships across entities that will be reflected in database tables
+	
+	- Generate migration
+		- This is a C# code to create table
+	
+		- dotnet ef migrations add [MIGRATION-NAME] -c [NAMESPACE-PATH-FOR-DBContext-Class]
+			- This command will add the 'Migrations' folder in the Project that contains code for generating table
+		
+	- Run Migrations to generate database and tables
+		- dotnet ef database update -c  [NAMESPACE-PATH-FOR-DBContext-Class]
+
+
+
