@@ -17,6 +17,8 @@ Create Table Employee (
   DeptNo int not null References Department(DeptNo)
 )
 
-INsert into Department Values(10, 'IT', 'Pune', 1000)
-INsert into Department Values(20, 'HR', 'Pune', 100)
-INsert into Department Values(30, 'SL', 'Pune', 600)
+	INsert into Department Values(10, 'IT', 'Pune', 1000)
+	INsert into Department Values(20, 'HR', 'Pune', 100)
+	INsert into Department Values(30, 'SL', 'Pune', 600)
+
+	Select * from Department

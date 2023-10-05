@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C02A29A-9F4F-4A3D-8D7E-276241DECECF}"
 	ProjectSection(SolutionItems) = preProject
 		Assignments.md = Assignments.md
+		API-Readme.md = API-Readme.md
 		Images.pptx = Images.pptx
 		readme.md = readme.md
 	EndProjectSection
@@ -78,7 +79,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CS_Concurrent_Collections",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EFCoreApps", "EFCoreApps", "{C04E16BB-B5EC-42E3-8AC6-68B3CB481298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_EFCore_DbFirst", "CS_EFCore_DbFirst\CS_EFCore_DbFirst.csproj", "{10B50EA2-4DC8-459A-B809-618370F9EEB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CS_EFCore_DbFirst", "CS_EFCore_DbFirst\CS_EFCore_DbFirst.csproj", "{10B50EA2-4DC8-459A-B809-618370F9EEB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

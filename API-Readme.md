@@ -1,0 +1,58 @@
+# ASP.NET Core API
+
+- WebApplication class
+	- Provides Hosting Env. For ASP.NET Core Apps
+	- Contracts
+		- IHostingEnvironment
+			- Manages Host Based Object model for Services, Middlewares.
+		- IConfiguration
+			- USed to Read the appSettings.json
+			-  The 'appSettings.josn' file exist in ASP.NET Core App. THis contains following
+				- Connection String to DB, to Distributed Cache
+				- JSON token Secret Keys
+				- Logging Configuration
+		- IServiceCollection
+			- Represents the Dependency Injetion Container
+			- USed to Register all Application Required Services in DI Container, e.g. Data Access, Session, Caching, etc.
+			- The 'ServiceDescriptor' class is used by the IServiceCollection to manage the 'Lifetime' of service instance
+				- Singleton
+					- Object is live throughout the lifecyle of the application
+						- Logging, Caching, etc.
+					- AddSingleton()
+				- Scopped
+					- Object is live for specific session
+						- Data Access
+					- AddScopped()
+				- Transient
+					- Object is live only for a specific request for execution
+						- An instance of utility class which will be used only for a specific requet e.g. ColletionUtilities 
+					- AddTransient()
+		- IApplicationBuilder
+			- Used to Register MIddleware classes into the HTTP-Request Pipeline
+				- IMiddleware
+				- The 'Middleware' class that is used to define a Middleware
+- Controller Class
+	- This is the Actual Resource that is requested by making HTTP REquest
+	- ControllerBase
+		- Base class for API Controller
+		- Methods and properties for HTTP Request and Response
+	- ApiControllerAttribute class
+		- Used to Read Request Body for Http POST and PUT Method and map that data from body to POST and PUT methods' input parameters of API Controller class
+	- RouteAttribute class
+		- MAp the HTTP Request URL to the controller
+			- e.g.
+				- https://MyServer/MyApp/MyCtrl, and the request is HTTP POST
+		- This is executed depending on The 'Route' Middleware
+				- BAsed on the Request for Controller, the MyCtrl Controller will be executed by Invoking its HTTP POST Action Method, because the Request for URL is HTTP POST 
+	- HttpGetAttribute class
+		- FOr Http Get MEthod Invocation
+	- HttpPostAttribute class
+		- For Http POST MEthod Invocation
+	- HttpPutAttribute class
+		- For Http PUT MEthod Invocation
+	- HttpDeleteAttribue class
+		- For Http DELETE MEthod Invocation
+	- The IActionResult Interface contract for Response
+		- OkResult class, Status 200
+		- OkObjectResult class , Status 200 with JSON Data as Response
+		- NotFoundResult, ConflictResult, etc.
