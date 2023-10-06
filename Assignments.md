@@ -55,3 +55,14 @@ d.	Get the Second Max Salary
 	- Task 2: Calculate Income
 	- TAsk 3: Write that Data in File
 2. Make sure that the Global Database for Storing the Employee Information is repaced by ConcurrentDictionary
+
+
+# Date: 06-Oct-2023
+
+1. Create a Custom Validator to make sure that the EmpName MUST be accepted as 'FirstName MiddleName LastName'
+
+2. MOdify the Post method for EMployeeController as follows:
+	- If the Empployee is added in specific Department but its capacity is already full then throw an exception statng that the 'Department is already full with ix max capacity of Employees'
+
+	- e.g.
+		-	If 'IT' Department has 10 Capacity and already there are 10 EMployees exisit into it then throw an exception

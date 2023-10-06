@@ -56,3 +56,31 @@
 		- OkResult class, Status 200
 		- OkObjectResult class , Status 200 with JSON Data as Response
 		- NotFoundResult, ConflictResult, etc.
+
+- The JSON Serialization Format
+	- COnfigure the API COntroller to Serilize the JSOn Response in CamelCase (Default)	to PAscal Case
+````csharp
+
+builder.Services.AddControllers() // Configure the Response as Pascal Case instead of Camel Case
+      .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null) ;
+````
+
+
+# API Design Guidelines
+
+1. Validate each input received by the API
+2. The Validation can be managed using following
+	- Model Data Validations
+		- Validate the 'Model' object received using POST and PUT method
+			- The Data Annotations, those are rules defined to validate each property of the Model/Entity class
+				- System.ComponentModel.DataAnnotations
+					- ValidattionAttribute class
+						- RequiredAttribute
+						- StringLengthAttribute
+						- CompareAttribute
+						- ... and many more
+			- Use the 'ModelState' property of 'ControllerBase' class of the type ModelStateDictionary class to validate each property from the Entity class 
+				- ModelState.IsValid
+			- Create a Custom Data Annotation Validator to define a custom Validation
+				- Derive class from ValidationAttribute and override its 'IsValid()' method 
+	- Process Validations
