@@ -84,3 +84,48 @@ builder.Services.AddControllers() // Configure the Response as Pascal Case inste
 			- Create a Custom Data Annotation Validator to define a custom Validation
 				- Derive class from ValidationAttribute and override its 'IsValid()' method 
 	- Process Validations
+
+
+# ASP.NET Core Action Filters
+
+- ***** IMportant
+	- Action Filters are only valid for MVC and API.
+	- Action Filters will not execute for Razor Veiws
+- Note
+	- If using a Single ASP.NET Core App with Razor Veiws, MVC, and API then put all global logic at application level in Middlewares
+	- If still wants to use Action Filters then do not register then in Global Scope, instead use them at Controller level (or at action level)
+	- Type of Filters
+		- IActionFilter
+			- AuthenticationFilter (Managed using Middlewares)
+			- AuthorizationFilter (Managed using Middlewares)
+			- ResourceFilter (MVC Views)
+			- ActionFilter (Custom Filter)
+			- ExceptionFilter (STandard Exception Handling for MVC and API Controllers)
+			- ResultFilter (Result Generation from MVC and API Controllers)
+	- Execution Order
+		- When an Action Hit 	
+			- OnActionExecuting(), Global Scope 
+			- OnActionExecuting(), Controller Scope 
+			- OnActionExecuting(), Action Scope 
+		- When an action is Completed its execution
+			- OnActionExecuted(), Action Scope
+			- OnActionExecuted(), Controller Scope
+			- OnActionExecuted(), Global Scope
+
+# Creation of Middlewares
+
+- Create a class that is construtor injected using the 'RequestDelegate' delegate
+	- RequestDelegate, a .NET Delegate that accepts the 'HttpContext' as input parameter and return Task (aka void) as output parameter	 
+		- HttpContext, this is a HTTP Channel that contains HttpRequest and HttpResponse
+		- The RequestDelegate will execute the current Middeware and once done, it will inform to the HttpContext to movew next middleware in the pipeline
+	- The class MUST implement the 'InvokeAsync(HttpContext ctx)' method. This method contains logic for the middleware  
+- Create an Extension method class
+	- THe extension method MUST access the first parameter as 'IApplicationBuilder'
+	- IApplicationBuilder, interface is used to build the HttpPipeline and hence this alos configure Middleware(s) in the request pipeline
+		- This interface has the 'Use(Func<RequestDelegate,RequestDelegate>)' method that is used  to define Middleware execution in Pipeline
+	- This extension method will be used to register our class as Custom Middleware in the request Pipeline 
+````html 
+	- There exist a 'UseMiddeware<T>()' method
+````		
+		- The 'T' is the Custom Middleware class that has the RequestDelegate injected to it using the Constructor Ijection 
+

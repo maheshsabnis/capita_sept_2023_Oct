@@ -1,10 +1,15 @@
-﻿using Core_API.Models;
+﻿using Core_API.CustomFilters;
+using Core_API.Models;
 using Core_API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core_API.Controllers
 {
+    /// <summary>
+    /// Action FIlter at Controller Level
+    /// </summary>
+   // [LoggerFilter]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentController : ControllerBase
@@ -19,6 +24,11 @@ namespace Core_API.Controllers
             this.deptServ = deptServ;
         }
 
+        /// <summary>
+        /// Filter at actio Level
+        /// </summary>
+        /// <returns></returns>
+        //[LoggerFilter]
         [HttpGet]
         public async Task<IActionResult> Get()
         { 
@@ -36,8 +46,8 @@ namespace Core_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Department dept)
         {
-            try
-            {
+            //try
+            //{
                 if (ModelState.IsValid)
                 {
                     if (await IsDeptNameExist(dept))
@@ -46,11 +56,11 @@ namespace Core_API.Controllers
                     return Ok(response);
                 }
                 return BadRequest(ModelState);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
         }
 
         [HttpPut("{id}")]

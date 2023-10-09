@@ -66,3 +66,15 @@ d.	Get the Second Max Salary
 
 	- e.g.
 		-	If 'IT' Department has 10 Capacity and already there are 10 EMployees exisit into it then throw an exception
+			- 
+
+# Date: 09-Oct-2023
+- Modify the Exception Handler Middleware to Log Each Incomming Request into the Database table with the Table having Following schema
+	- LoggerID, MUST be a GUID
+	- LogDate, Date
+	- LogTime, Time
+	- LoggerMessage, varchar(4000) characters
+	- ControllerName, varchar(200)
+	- ActionName, varchar(200)
+
+- Each Request (Success as well as  Excpetion) MUST be logged in Database

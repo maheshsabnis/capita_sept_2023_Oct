@@ -1,3 +1,5 @@
+using Core_API.CustomFilters;
+using Core_API.CustomMIddlewares;
 using Core_API.Models;
 using Core_API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +40,13 @@ builder.Services.AddCors(options =>
 
 // The Registration for API Controller Request Proessing
 builder.Services.AddControllers() // Configure the Response as Pascal Case instead of Camel Case
-      .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null) ;
+      .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
+      // Filter at the GLobal Scope
+      // THis will always Preceeds the Middleware for MVC and API Controllers
+      .AddMvcOptions(options=>options.Filters.Add(new LoggerFilterAttribute()));
+        
+
+
 // For MVC
 builder.Services.AddControllersWithViews();
 
@@ -63,6 +71,12 @@ app.UseCors("corspolicy");
 
 // FOr MVC View
 app.UseRouting();
+
+// Apply the Custom Middleware
+
+app.UseErrorExtender();
+
+
 // Use of Authorization
 app.UseAuthorization();
 // Map the Request to the API Controller
