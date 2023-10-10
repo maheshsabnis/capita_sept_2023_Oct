@@ -78,3 +78,15 @@ d.	Get the Second Max Salary
 	- ActionName, varchar(200)
 
 - Each Request (Success as well as  Excpetion) MUST be logged in Database
+- 
+
+# Date: 10-Oct-2023
+
+1. Modify the Application based on following requirements
+	- When the app runs for the first time, create a 'Administrator' Role and Create an 'admin@mypp.com' user for the Administrator role
+		- Hint: Create a Static class e.g. GLobalOps and CReate a static method in it e.g. CreateAddAdmin()
+			- Use 'IServiceProvider' to access UserManager	and RoleManager classes from DI Container
+	- The Role can be created by Adminstrator only
+	- Application Users cae be grated roles only by Administrator
+	- Refer
+	-	https://www.webnethelper.com/2022/03/aspnet-core-6-using-role-based-security.html

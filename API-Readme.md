@@ -129,3 +129,29 @@ builder.Services.AddControllers() // Configure the Response as Pascal Case inste
 ````		
 		- The 'T' is the Custom Middleware class that has the RequestDelegate injected to it using the Constructor Ijection 
 
+
+# ASP.NET Core Identity for APIs
+````html
+
+- Microsoft.AspNetCore.Identity
+	- Authentication and Authorization Services
+		- AddAuthentication()
+		- AddAuthorization()
+	-  Authentication and Authorization Middlewares
+		- UseAuthentication()
+		- UseAuthorization()
+
+- Microsoft.AspNetCore.Identity.EntiryFrameworkCore
+	- Data Access Layer for Identity
+		- IdentityDbContext
+			- Manages Connection to Identity Database and mapping with ASP.NET Core Identity Tables
+			- IdentityUser and IdentityRole mapping classes with ASP.NET Core Identity Tables 
+			- IdentityUser mapped with AspNetUsers table
+			- IdentityRole mapped with AspNetRoles table
+- Microsoft.AspNetCore.Identity.UI
+	- UserManager<IdentityUser> 
+	- RoleManager<IdentityRole>
+- Microsoft.AspNetCore.Authentication.JwtBearer
+	- System.IdentityModel.Tokens.Jwt 
+
+````

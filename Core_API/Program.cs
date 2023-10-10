@@ -2,6 +2,7 @@ using Core_API.CustomFilters;
 using Core_API.CustomMIddlewares;
 using Core_API.Models;
 using Core_API.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,10 +20,28 @@ builder.Services.AddDbContext<UcompanyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnectionString"));
 });
 
+// Register the AuthDbCapDbContext class in DI Container
+
+builder.Services.AddDbContext<AuthDbCapDbContext>(options => 
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuthConnectionString"));
+});
+
+
+// Register the AddIdentity Service to Register and Resolve UserManger, RoleManager, and SignInManager
+// Also inform these objets that they will be using EntityFrameworCore for
+// Users and Roles Management
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    // USe the EF Core for CReating, Managing USers and Roles
+    .AddEntityFrameworkStores<AuthDbCapDbContext>();
+
 // 2. Lets register Repositories
 builder.Services.AddScoped<IDataAccessRepository<Department,int>, DepartmentDataAccessRepository>();
 
 builder.Services.AddScoped<IDataResponseService<Employee,int>,EmployeeDataAccessRepository>();
+
+// 2.a. Register the SecurityService in DI Container
+builder.Services.AddScoped<SecurityServices>();
 
 // 3. Define Cross-Origin-Resource-Sharing (CORS) Service
 // 3.1. The Allowed Origin THat can call the API
@@ -72,13 +91,18 @@ app.UseCors("corspolicy");
 // FOr MVC View
 app.UseRouting();
 
+// Add the Authentication Middleware That will take create of the User-Based Security (aka Authentication)
+
+app.UseAuthentication();
+// Use of Authorization
+app.UseAuthorization();
+
+
 // Apply the Custom Middleware
 
 app.UseErrorExtender();
 
 
-// Use of Authorization
-app.UseAuthorization();
 // Map the Request to the API Controller
 // INtenally uses the ROuting
 // https://localhost:PORT/Department
