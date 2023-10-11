@@ -155,3 +155,16 @@ builder.Services.AddControllers() // Configure the Response as Pascal Case inste
 	- System.IdentityModel.Tokens.Jwt 
 
 ````
+
+# API Deployment for Production
+
+- On-Premise Deployment
+	- Configure the Appliction Server aka web Server
+		- Create a Web Site as No-Managed Code
+		- Publish the ASP.NET Core Application on IIS in the website
+			- This will create web.config file 
+- Cloud i.e. Azure Deployment
+	- First Deploye Database
+	- Modify the App Connection String
+	- Publis App on Cloud
+		

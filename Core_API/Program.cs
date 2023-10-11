@@ -2,8 +2,10 @@ using Core_API.CustomFilters;
 using Core_API.CustomMIddlewares;
 using Core_API.Models;
 using Core_API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +45,60 @@ builder.Services.AddScoped<IDataResponseService<Employee,int>,EmployeeDataAccess
 // 2.a. Register the SecurityService in DI Container
 builder.Services.AddScoped<SecurityServices>();
 
+
+/* 2.b. Code to  validate the token */
+
+// REad the Secret Key that will be used to verify an integrity of the token
+byte[] secretKey = Convert.FromBase64String(builder.Configuration["JWTCoreSettings:SecretKey"]);
+
+// add the authentication service that will be responsible to verify the token 
+// based on Schema
+
+//builder.Services.AddAuthentication(auth => 
+//{
+//    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;  
+//})
+//    /* Actually verify the token */
+//    .AddJwtBearer(token => 
+//    {
+//       token.RequireHttpsMetadata = false;
+//       token.SaveToken = true;
+//        token.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+//        {
+//            ValidateIssuerSigningKey = true,
+//            IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+//            ValidateIssuer = false,
+//            ValidateAudience = false
+//        };
+//    });
+
+
+
+/*
+  Define an authorization policies where roles can be grouped into a single policy 
+  A policy is applied on COntroller. WHen the user sends the request 
+  The role is verified and the policy where the role is belong to will be activated
+and based on it the autjorization access will be provided to user 
+ */
+
+builder.Services.AddAuthorization(options => 
+{
+    options.AddPolicy("ReadPolicy", policy => 
+    {
+        policy.RequireRole("Manager","Clerk", "Operator");
+    });
+    options.AddPolicy("CreatePolicy", policy =>
+    {
+        policy.RequireRole("Manager", "Clerk");
+    });
+    options.AddPolicy("UpdateDeletePolicy", policy =>
+    {
+        policy.RequireRole("Manager");
+    });
+});
+
+
 // 3. Define Cross-Origin-Resource-Sharing (CORS) Service
 // 3.1. The Allowed Origin THat can call the API
 // 3.2. The Allowed HTTP Request Meathod that can call API from the Origin
@@ -77,13 +133,13 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 // Middlewares
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 // Http to Https Redirection MApping
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 // Add CORS Middlweare that will execute the Policy
 app.UseCors("corspolicy");
 

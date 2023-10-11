@@ -21,6 +21,7 @@
         public string? UserName { get; set; }
         public string? Message { get; set; }
         public int StatucCode { get; set; }
+        public string? Token { get; set; }
     }
     /// <summary>
     /// Class to create a new Role

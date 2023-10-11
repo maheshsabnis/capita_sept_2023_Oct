@@ -1,5 +1,8 @@
 ﻿using Core_API.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Core_API.Services
 {
@@ -17,6 +20,10 @@ namespace Core_API.Services
         /// Create an Manage Roles
         /// </summary>
         RoleManager<IdentityRole> _roleManager;
+        /// <summary>
+        /// USed to read onfiguration from the appsettings.json
+        /// </summary>
+        IConfiguration _config;
 
         /// <summary>
         /// Inject THe UserManager and SignInManager in DI Container 
@@ -25,11 +32,13 @@ namespace Core_API.Services
         /// </summary>
         /// <param name="userManager"></param>
         /// <param name="signInManager"></param>
-        public SecurityServices(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public SecurityServices(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
+             IConfiguration config)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _config = config;
         }
 
         public async Task<SecureResponse> RegisterUserAsync(RegisterUser user)
@@ -114,6 +123,42 @@ namespace Core_API.Services
                         {
                             response.StatucCode = 200;
                             response.Message = $"User {user.Email} Logged in successfuly";
+
+                            /* Logic for Token Issue */
+                            // 1. REad the Secret Key and Expiry from the appseetings.json
+                            var secretKey = Convert.FromBase64String(_config["JWTCoreSettings:SecretKey"]);
+                            var expiry = Convert.ToInt32(_config["JWTCoreSettings:ExpiryInMinuts"]);
+
+                            /* Describe the token for Signeture, Expiry, IssueTime, Issuer, and Audience */
+
+                            var securityTokenDescriptor = new SecurityTokenDescriptor() 
+                            {
+                               Issuer =null,
+                               Audience = null,
+                               /* Define subject: CLaims used for storing identity values in token so that when the token is send by client in request header, it will be used by the server to verify the identity */
+                               Subject = new System.Security.Claims.ClaimsIdentity(new List<Claim>
+                               {
+                                   new Claim("userid", identityUser.Id)
+                               }),
+
+                               Expires = DateTime.UtcNow.AddMinutes(expiry),
+                               IssuedAt = DateTime.UtcNow,
+                               NotBefore = DateTime.UtcNow,
+                               /* The SIgneture applied on the token */
+                               SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256Signature)
+                            };
+
+                            /* Actualy Generate the Token */
+                            /* JwtSecurityTokenHandler: Class used to generate the token based on the token description  */
+                            var jwtHandler = new JwtSecurityTokenHandler();
+
+                            /* Create a token */
+                            var jwToken = jwtHandler.CreateJwtSecurityToken(securityTokenDescriptor);
+                            /* Write it in the response */
+                            /* HEADER.PAYLOAD.SIGNETURE */
+                            response.Token = jwtHandler.WriteToken(jwToken);
+                            response.UserName = identityUser.UserName;
+
                         }
                         else
                         {

@@ -37,21 +37,27 @@ namespace Core_API.Controllers
 
         // Configure Secure access for Get() method to all Roles
 
-        [Authorize(Roles = "Manager,Clerk,Operator")]
+        // [Authorize(Roles = "Manager,Clerk,Operator")]
+        // Applying policies
+        [Authorize(Policy = "ReadPolicy")]
         [HttpGet]
         public async Task<IActionResult> Get()
         { 
             var response = await deptServ.GetAsync();
             return Ok(response);
         }
-        [Authorize(Roles = "Manager,Clerk,Operator")]
+        // [Authorize(Roles = "Manager,Clerk,Operator")]
+        // Applying policies
+        [Authorize(Policy = "ReadPolicy")]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var response = await deptServ.GetAsync(id);
             return Ok(response);
         }
-        [Authorize(Roles = "Manager,Clerk")]
+        // [Authorize(Roles = "Manager,Clerk")]
+        // Applying policies
+        [Authorize(Policy = "CreatePolicy")]
         [HttpPost]
         public async Task<IActionResult> Post(Department dept)
         {
@@ -71,14 +77,18 @@ namespace Core_API.Controllers
             //    return BadRequest(ex.Message);
             //}
         }
-        [Authorize(Roles = "Manager")]
+        // [Authorize(Roles = "Manager")]
+        // Applying policies
+        [Authorize(Policy = "UpdateDeletePolicy")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, Department dept)
         {
             var response = await deptServ.UpdateAsync(id, dept);
             return Ok(response);
         }
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
+        // Applying policies
+        [Authorize(Policy = "UpdateDeletePolicy")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
